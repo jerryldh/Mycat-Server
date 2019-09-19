@@ -35,6 +35,10 @@ import io.mycat.server.response.*;
 public final class SelectHandler {
 
 	public static void handle(String stmt, ServerConnection c, int offs) {
+//		if(stmt.contains("@@")){
+//			SelectVariables.execute(c,stmt);
+//			return;
+//		}
 		int offset = offs;
 		switch (ServerParseSelect.parse(stmt, offs)) {
 		case ServerParseSelect.VERSION_COMMENT:

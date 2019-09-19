@@ -20,7 +20,9 @@ public class SetIgnoreUtil {
 	static  {
 		
 		//TODO: 忽略部分 SET 指令, 避免WARN 不断的刷日志
+		// ldh add set autocommit reg
 		String[] ignores = new String[] {
+			"(?i)set (autocommit)",
 			"(?i)set (sql_mode)",
 			"(?i)set (interactive_timeout|wait_timeout|net_read_timeout|net_write_timeout|lock_wait_timeout|slave_net_timeout)",
 			"(?i)set (connect_timeout|delayed_insert_timeout|innodb_lock_wait_timeout|innodb_rollback_on_timeout)",

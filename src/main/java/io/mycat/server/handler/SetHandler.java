@@ -60,6 +60,9 @@ public final class SetHandler {
 		
 	public static void handle(String stmt, ServerConnection c, int offset) {
 		// System.out.println("SetHandler: "+stmt);
+		if(stmt.contains("sql_mode")){
+			stmt = stmt.substring(0,16);
+		}
 		int rs = ServerParseSet.parse(stmt, offset);
 		switch (rs & 0xff) {
 		case AUTOCOMMIT_ON:

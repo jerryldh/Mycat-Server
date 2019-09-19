@@ -165,7 +165,12 @@ public class ServerConnection extends FrontendConnection {
 		String db = this.schema;
 		boolean isDefault = true;
 		if (db == null) {
-			db = SchemaUtil.detectDefaultDb(sql, type);
+			//ldh if db=null,set information_schema;
+			if(sql.contains("information_schema")){
+				db = "information_schema";
+			}else{
+				db = SchemaUtil.detectDefaultDb(sql, type);
+			}
 			if (db == null) {
 				writeErrMessage(ErrorCode.ERR_BAD_LOGICDB, "No MyCAT Database selected");
 				return;
@@ -175,11 +180,12 @@ public class ServerConnection extends FrontendConnection {
 		
 		// 兼容PhpAdmin's, 支持对MySQL元数据的模拟返回
 		//// TODO: 2016/5/20 支持更多information_schema特性
-		if (ServerParse.SELECT == type 
-				&& db.equalsIgnoreCase("information_schema") ) {
-			MysqlInformationSchemaHandler.handle(sql, this);
-			return;
-		}
+		// 2019/9/18 ldh 下发请求
+//		if (ServerParse.SELECT == type
+//				&& db.equalsIgnoreCase("information_schema") ) {
+//			MysqlInformationSchemaHandler.handle(sql, this);
+//			return;
+//		}
 
 		if (ServerParse.SELECT == type 
 				&& sql.contains("mysql") 

@@ -1,0 +1,8 @@
+# range start-end ,data node index
+# K=1000,M=10000.
+0-10K=0
+10K-20K=1
+20K-30K=2
+30K-40K=3
+40K-50K=4
+50K-60M=5

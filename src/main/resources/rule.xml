@@ -80,6 +80,35 @@
 		</rule>
 	</tableRule>
 
+	<!-- 自定义rule and function -->
+	<tableRule name="testdb-partition">
+		<rule>
+			<columns>id</columns>
+			<algorithm>testdb-partition</algorithm>
+		</rule>
+	</tableRule>
+
+	<tableRule name="testdb-partition-string">
+		<rule>
+			<columns>TABLE_NAME</columns>
+			<algorithm>testdbPartitionByString</algorithm>
+		</rule>
+	</tableRule>
+
+	<function name="testdb-partition"
+		class="io.mycat.route.function.AutoPartitionByLong">
+		<property name="mapFile">testdb-partition.txt</property>
+	</function>
+
+
+
+	<function name="testdbPartitionByString"
+		class="io.mycat.route.function.PartitionByString">
+		<property name="partitionCount">1</property>
+		<property name="partitionLength">1024</property>
+	</function>
+
+
 	<function name="murmur"
 		class="io.mycat.route.function.PartitionByMurmurHash">
 		<property name="seed">0</property><!-- 默认是0 -->
@@ -92,7 +121,6 @@
 
 	<function name="crc32slot"
 			  class="io.mycat.route.function.PartitionByCRC32PreSlot">
-		<property name="count">2</property><!-- 要分片的数据库节点数量，必须指定，否则没法分片 -->
 	</function>
 	<function name="hash-int"
 		class="io.mycat.route.function.PartitionByFileMap">
@@ -118,7 +146,7 @@
 	<function name="partbymonth"
 		class="io.mycat.route.function.PartitionByMonth">
 		<property name="dateFormat">yyyy-MM-dd</property>
-		<property name="sBeginDate">2015-01-01</property>
+		<property name="sBeginDate">2016-01-01</property>
 	</function>
 	
 	<function name="rang-mod" class="io.mycat.route.function.PartitionByRangeMod">
