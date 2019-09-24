@@ -166,7 +166,7 @@ public class ServerConnection extends FrontendConnection {
 		boolean isDefault = true;
 		if (db == null) {
 			//ldh if db=null,set information_schema;
-			if(sql.contains("information_schema")){
+			if(sql.contains("information_schema") || sql.contains("INFORMATION_SCHEMA")){
 				db = "information_schema";
 			}else{
 				db = SchemaUtil.detectDefaultDb(sql, type);
